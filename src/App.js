@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./App.css"
 import "h8k-components"
 
@@ -7,7 +7,7 @@ import Articles from "./components/Articles"
 const title = "Sorting Articles"
 
 function App({ articles }) {
-  const [temp, setTemp] = useState(articles)
+  const [articlesSorted, setArticlesSorted] = useState(articles)
 
   const sortArticles = (option) => {
     let articlesCopy = [...articles]
@@ -22,8 +22,12 @@ function App({ articles }) {
       return null
     })
 
-    setTemp(articlesCopy)
+    setArticlesSorted(articlesCopy)
   }
+
+  useEffect(() => {
+    sortArticles("upvotes")
+  }, [])
 
   return (
     <div className="App">
@@ -47,7 +51,7 @@ function App({ articles }) {
           Most Recent
         </button>
       </div>
-      <Articles articles={temp} />
+      <Articles articles={articlesSorted} />
     </div>
   )
 }
